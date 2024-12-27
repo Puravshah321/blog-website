@@ -26,134 +26,228 @@
   <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
 
-  <title>Contact</title>
+  <title>Search Results</title>
 
   <style>
-    /* Add custom styling for the search form */
-.form-select, .form-control {
-    border-radius: 25px;
-    padding: 10px;
-}
+    body {
+      background-color: #f9f9f9;
+      font-family: 'Roboto', sans-serif;
+    }
 
-/* Style for search button */
-.btn-outline-success {
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-weight: bold;
-}
+    .form-select, .form-control {
+      border-radius: 25px;
+      padding: 10px;
+      transition: all 0.3s ease;
+    }
 
-/* Add a little margin and padding for the results */
-.container.mt-4 {
-    margin-top: 20px;
-}
-
-/* Style for the cards displaying results */
-.shadow {
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.text-info {
-    font-weight: bold;
-}
-
-.row-cols-lg-3 .col {
-    margin-bottom: 20px;
-}
-
-.row-cols-lg-3 img {
-    border-radius: 8px;
-}
-
-h5.mt-4 {
-    font-size: 1.1rem;
-}
-
-/* Responsive behavior */
-@media (max-width: 768px) {
-    .container.mt-4 {
-        margin-top: 10px;
+    .form-select:focus, .form-control:focus {
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
     }
 
     .btn-outline-success {
-        width: 100%;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
-}
 
+    .btn-outline-success:hover {
+      background-color: #198754;
+      color: #fff;
+    }
+
+    .shadow {
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    h5 {
+      font-weight: bold;
+      animation: slideIn 1s ease;
+    }
+
+    img {
+      border-radius: 8px;
+      animation: zoomIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-20px);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.9);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .container.mt-4 {
+      margin-top: 20px;
+    }
+
+    .result-card {
+      opacity: 0;
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    .result-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .result-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .result-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .result-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container.mt-4 {
+        margin-top: 10px;
+      }
+
+      .btn-outline-success {
+        width: 100%;
+      }
+    }
+
+    .form-select, .form-control {
+      border-radius: 25px;
+      padding: 10px;
+    }
+
+    .btn-outline-success {
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-weight: bold;
+    }
+
+    .row-cols-lg-3 .col {
+      margin-bottom: 20px;
+    }
+
+    .row-cols-lg-3 img {
+      border-radius: 8px;
+    }
+
+    h5.mt-4 {
+      font-size: 1.1rem;
+    }
+
+    .text-info {
+      font-weight: bold;
+    }
   </style>
 
 </head>
 
 <body>
-    {%include 'header.html'%}
+  {% include 'header.html' %}
 
-    <div class="container mt-5">
-        <form method="get" action="{% url 'search' %}" class="d-flex">
-          <!-- Search Type Dropdown -->
-          <select class="form-select me-2" name="search_type">
-            <option value="users" {% if search_type == 'users' %}selected{% endif %}>Search Users</option>
-            <option value="posts" {% if search_type == 'posts' %}selected{% endif %}>Search Posts</option>
-          </select>
-      
-          <!-- Search Input -->
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search..."
-            aria-label="Search"
-            name="query"
-            value="{{ query }}"
-          >
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-      
-      <div class="container mt-4">
-        {% if search_results %}
-          <h5>Search Results for "{{ query }}":</h5>
-      
-          {% if search_type == 'users' %}
-            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
-              {% for user in search_results %}
-              <div class="col col-lg-4 col-md-6 col-12 mb-2">
-                <div class="px-3 py-5 shadow">
-                  <h5 class="mt-4">{{ user.username }}</h5>
-                  <p>Email: {{ user.email }}</p>
-                  <p>Full Name: {{ user.first_name }} {{ user.last_name }}</p>
-                  <a href="{% url 'profile' user.id %}" class="btn btn-primary mt-3">View Profile</a>
+  <div class="container mt-5">
+    <form method="get" action="{% url 'search' %}" class="d-flex">
+      <select class="form-select me-2" name="search_type">
+        <option value="users" {% if search_type == 'users' %}selected{% endif %}>Search Users</option>
+        <option value="posts" {% if search_type == 'posts' %}selected{% endif %}>Search Posts</option>
+      </select>
+
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search..."
+        aria-label="Search"
+        name="query"
+        value="{{ query }}"
+      >
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+
+  <div class="container mt-4">
+    {% if search_results %}
+      <h5>Search Results for "{{ query }}":</h5>
+
+      {% if search_type == 'users' %}
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
+          {% for user in search_results %}
+            <div class="col mb-2 result-card">
+              <div class="card shadow">
+                <div class="card-body">
+                  <h5 class="card-title">{{ user.username }}</h5>
+                  <p class="card-text">Full Name: {{ user.first_name }} {{ user.last_name }}</p>
+                  <p class="card-text">Email: {{ user.email }}</p>
+                  <a href="{% url 'profile' user.id %}" class="btn btn-primary">View Profile</a>
                 </div>
               </div>
-              {% endfor %}
             </div>
-      
-          {% elif search_type == 'posts' %}
-            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
-              {% for post in search_results %}
-              <div class="col col-lg-4 col-md-6 col-12 mb-2">
-                <img src="{{media_url}}{{ post.image }}" class="img-fluid" alt="" width="100%">
-                <div class="px-3 py-5 shadow">
-                  <span class="text-white bg-info text-center rounded-3 mt-5" style="padding: 8px; font-size:25px;">{{ post.category }}</span>
-                  <a href="{% url 'post' post.id %}" class="text-decoration-none text-dark">
-                    <h5 class="mt-4">{{ post.postname }}</h5>
-                  </a>
-                  <p>{{ post.content|slice:"0:100" }}...</p>
+          {% endfor %}
+        </div>
+
+      {% elif search_type == 'posts' %}
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
+          {% for post in search_results %}
+            <div class="col mb-2 result-card">
+              <div class="card shadow">
+                
+                <div class="card-body">
+                  <span class="badge bg-info">{{ post.category }}</span>
+                  <h5 class="card-title mt-3">{{ post.postname }}</h5>
+                  <p class="card-text">{{ post.content|slice:"0:100" }}...</p>
                   <p class="small text-primary">{{ post.time }}</p>
+                  <a href="{% url 'post' post.id %}" class="btn btn-outline-success">Read More</a>
                 </div>
               </div>
-              {% endfor %}
             </div>
-          {% endif %}
-      
-        {% else %}
-          {% if query %}
-            <p>No results found for "{{ query }}"</p>
-          {% endif %}
-        {% endif %}
-      </div>
-        
+          {% endfor %}
+        </div>
+      {% endif %}
 
-  <!-- Bootstrap core JavaScript -->
+    {% else %}
+      {% if query %}
+        <div class="alert alert-warning" role="alert">
+          No results found for "{{ query }}". Please try again with different keywords.
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -163,25 +257,11 @@ h5.mt-4 {
     integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
     crossorigin="anonymous"></script>
 
-  <!-- Additional Scripts -->
   <script src="{% static 'assets/js/custom.js' %}"></script>
   <script src="{% static 'assets/js/owl.js' %}"></script>
   <script src="{% static 'assets/js/slick.js' %}"></script>
   <script src="{% static 'assets/js/isotope.js' %}"></script>
   <script src="{% static 'assets/js/accordions.js' %}"></script>
-
-
-  <script language="text/Javascript">
-    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-    function clearField(t) {                   //declaring the array outside of the
-      if (!cleared[t.id]) {                      // function makes it static and global
-        cleared[t.id] = 1;  // you could use true and false, but that's more typing
-        t.value = '';         // with more chance of typos
-        t.style.color = '#fff';
-      }
-    }
-
-  </script>
 
 </body>
 
