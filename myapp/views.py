@@ -149,6 +149,15 @@ def profile(request,id):
     })
     
     
+def profile_s(request,id):
+    
+    return render(request,'profile_searched.html',{
+        'user':User.objects.get(id=id),
+        'posts':Post.objects.all(),
+        'media_url':settings.MEDIA_URL,
+    })
+    
+    
 def profileedit(request, id):
     if request.method == 'POST':
         firstname = request.POST['firstname']
