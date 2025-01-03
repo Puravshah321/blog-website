@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer Section</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+  <style>
+    /* Footer Styling */
+    footer {
+      background-color: #1c1c1c;
+      color: #f5f5f5;
+      padding: 50px 0;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+    }
+
+    footer h4 {
+      color: #ff9800;
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer li {
+      margin-bottom: 10px;
+    }
+
+    footer li a {
+      color: #d1d1d1;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer li a:hover {
+      color: #ff9800;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+      margin-top: 20px;
+    }
+
+    .newsletter input[type="email"] {
+      width: calc(100% - 120px);
+      padding: 10px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      margin-right: 10px;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .newsletter button {
+      padding: 10px 20px;
+      background-color: #ff9800;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter button:hover {
+      background-color: #e68a00;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: #d1d1d1;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #ff9800;
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      margin-top: 30px;
+      text-align: center;
+      font-size: 12px;
+      color: #a1a1a1;
+    }
+
+    /* Categories Section */
+    .categories-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Display two categories per row */
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .categories-list li {
+      margin-bottom: 5px;
+    }
+
+    .categories-list a {
+      color: #d1d1d1;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .categories-list a:hover {
+      color: #ff9800;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 600px) {
+      footer h4,
+      footer li {
+        text-align: center;
+      }
+
+      .newsletter input[type="email"] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .newsletter button {
+        width: 100%;
+      }
+
+      /* For small screens, display categories in one column */
+      .categories-list {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <!-- About Us -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <h4>About Us</h4>
+          <p>Explore stories, insights, and inspiration tailored to enrich your journey. Join our community to stay informed and connected!</p>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <h4>Recent Posts</h4>
+          <ul>
+            <li><a href="https://www.thebalancesmb.com/how-to-improve-your-writing-skills-4689246">How to Improve Your Writing Skills</a></li>
+            <li><a href="https://blog.hubspot.com/blogging/how-to-start-a-blog">How to Start a Blog</a></li>
+            <li><a href="https://www.copyblogger.com/storytelling/">Mastering the Art of Storytelling</a></li>
+          </ul>          
+        </div>
+
+        <!-- Categories -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <h4>Categories</h4>
+          <ul class="categories-list">
+            <li><a href="{% url 'blog' %}?categories=Nature">Nature</a></li>
+            <li><a href="{% url 'blog' %}?categories=Finance">Finance</a></li>
+            <li><a href="{% url 'blog' %}?categories=Food">Food</a></li>
+            <li><a href="{% url 'blog' %}?categories=Politics">Politics</a></li>
+            <li><a href="{% url 'blog' %}?categories=Entertainment">Entertainment</a></li>
+            <li><a href="{% url 'blog' %}?categories=Education">Education</a></li>
+            <li><a href="{% url 'blog' %}?categories=Technology">Technology</a></li>
+            <li><a href="{% url 'blog' %}?categories=Travel">Travel</a></li>
+            <li><a href="{% url 'blog' %}?categories=Health">Health</a></li>
+            <li><a href="{% url 'blog' %}?categories=Sports">Sports</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <h4>Newsletter</h4>
+          <p>Subscribe for the latest updates and exclusive tips!</p>
+          <div class="newsletter">
+            <input type="email" placeholder="Your email">
+            <button>Subscribe</button>
+          </div>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      &copy; 2024 Blog Website | All Rights Reserved | Designed with ❤ by Tech Turtles
+    </div>
+  </footer>
+</body>
+</html>
